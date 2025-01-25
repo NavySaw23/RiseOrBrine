@@ -5,13 +5,17 @@ using UnityEngine;
 public class charMovement : MonoBehaviour
 {
     public Manager manager;
+    public weapon MyWeapon;
     public int moveSpeed;
     public bool onPlatform;
     public bool lookLeft;
 
+
+
     void Start()
     {
         manager = GameObject.Find("Manager").GetComponent<Manager>();
+        MyWeapon = GameObject.Find("Weapon").GetComponent<weapon>();
     }
     void Update()
     {
@@ -20,9 +24,16 @@ public class charMovement : MonoBehaviour
         if (manager.timeIsRunning)
         {
             movement();
+
+            if(Input.GetKeyDown(KeyCode.Z)){
+                MyWeapon.attack();
+            }
+
+
             //if player falls off screen
             if (transform.position.y < -10) { respawn(); }
         }
+
     }
 
     void OnCollisionStay2D(Collision2D other)
@@ -43,7 +54,7 @@ public class charMovement : MonoBehaviour
             GetComponent<Rigidbody2D>().velocity = new Vector2(-moveSpeed, GetComponent<Rigidbody2D>().velocity.y);
             if (lookLeft == false)
             {
-                transform.localScale = new Vector3(-1*transform.localScale.x, transform.localScale.y, transform.localScale.z);
+                transform.localScale = new Vector3(-1 * transform.localScale.x, transform.localScale.y, transform.localScale.z);
                 lookLeft = true;
             }
         }
@@ -54,7 +65,7 @@ public class charMovement : MonoBehaviour
             GetComponent<Rigidbody2D>().velocity = new Vector2(moveSpeed, GetComponent<Rigidbody2D>().velocity.y);
             if (lookLeft == true)
             {
-                transform.localScale = new Vector3(-1*transform.localScale.x, transform.localScale.y, transform.localScale.z);
+                transform.localScale = new Vector3(-1 * transform.localScale.x, transform.localScale.y, transform.localScale.z);
                 lookLeft = false;
             }
         }
@@ -68,7 +79,8 @@ public class charMovement : MonoBehaviour
             onPlatform = false;
             GetComponent<Rigidbody2D>().velocity = Vector3.up * 10;
         }
-        if ((Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S)))
+
+        if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
         {
             GetComponent<Rigidbody2D>().velocity = Vector3.down * 40;
         }
@@ -76,7 +88,7 @@ public class charMovement : MonoBehaviour
 
 
 
-    void respawn()
+    public void respawn()
     {
         transform.position = new Vector3(0, 0, 0);
         GetComponent<Rigidbody2D>().velocity = Vector3.zero;
