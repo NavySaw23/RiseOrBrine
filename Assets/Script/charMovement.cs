@@ -25,7 +25,8 @@ public class charMovement : MonoBehaviour
         {
             movement();
 
-            if(Input.GetKeyDown(KeyCode.Z)){
+            if (Input.GetKeyDown(KeyCode.Z))
+            {
                 MyWeapon.attack();
             }
 
@@ -90,8 +91,17 @@ public class charMovement : MonoBehaviour
 
     public void respawn()
     {
-        transform.position = new Vector3(0, 0, 0);
-        GetComponent<Rigidbody2D>().velocity = Vector3.zero;
+        if (manager.Life > 0)
+        {
+            manager.Life--;
+            transform.position = new Vector3(0, 0, 0);
+            GetComponent<Rigidbody2D>().velocity = Vector3.zero;
+        }
+        else
+        {
+            manager.gameover();
+            manager.timeIsRunning = false;
+        }
     }
 
 
