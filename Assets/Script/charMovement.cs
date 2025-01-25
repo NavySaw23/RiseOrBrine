@@ -7,12 +7,11 @@ public class charMovement : MonoBehaviour
     public Manager manager;
     public int moveSpeed;
     public bool onPlatform;
-    public bool dash;
+    public bool lookLeft;
 
     void Start()
     {
         manager = GameObject.Find("Manager").GetComponent<Manager>();
-        dash = false;
     }
     void Update()
     {
@@ -42,14 +41,22 @@ public class charMovement : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
         {
             GetComponent<Rigidbody2D>().velocity = new Vector2(-moveSpeed, GetComponent<Rigidbody2D>().velocity.y);
-
+            if (lookLeft == false)
+            {
+                transform.localScale = new Vector3(-1*transform.localScale.x, transform.localScale.y, transform.localScale.z);
+                lookLeft = true;
+            }
         }
 
 
         if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
         {
             GetComponent<Rigidbody2D>().velocity = new Vector2(moveSpeed, GetComponent<Rigidbody2D>().velocity.y);
-
+            if (lookLeft == true)
+            {
+                transform.localScale = new Vector3(-1*transform.localScale.x, transform.localScale.y, transform.localScale.z);
+                lookLeft = false;
+            }
         }
 
 
@@ -68,14 +75,12 @@ public class charMovement : MonoBehaviour
     }
 
 
-    void StopDash()
-    {
-        dash = false;
-    }
 
     void respawn()
     {
         transform.position = new Vector3(0, 0, 0);
         GetComponent<Rigidbody2D>().velocity = Vector3.zero;
     }
+
+
 }
