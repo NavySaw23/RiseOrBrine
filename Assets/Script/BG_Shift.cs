@@ -17,7 +17,7 @@ public class BG_Shift : MonoBehaviour
         if(manager.timeIsRunning && transform.position.y > -50f)
         {
             transform.Translate(Vector3.down * Time.deltaTime * speed);
-            speed += 0.000001f;
+            // speed += 0.000001f;
         }
     }
 }
