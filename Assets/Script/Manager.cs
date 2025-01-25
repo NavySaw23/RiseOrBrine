@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class Manager : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public bool timeIsRunning;
+    
     void Start()
     {
-        
+        timeIsRunning = true;
     }
 
-    // Update is called once per frame
     void Update()
     {
         
