@@ -17,7 +17,7 @@ public class weapon : MonoBehaviour
     {
         manager = GameObject.Find("Manager").GetComponent<Manager>();
         player = GameObject.Find("Character").GetComponent<charMovement>();
-        changeWeapon(1);
+        changeWeapon(0);
         transform.GetChild(0).GetComponent<BoxCollider2D>().enabled = false;
     }
 

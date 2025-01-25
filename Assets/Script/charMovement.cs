@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class charMovement : MonoBehaviour
@@ -37,12 +38,26 @@ public class charMovement : MonoBehaviour
 
     }
 
+
     void OnCollisionStay2D(Collision2D other)
     {
 
         if (other.gameObject.tag == "Platform")
         {
             onPlatform = true;
+        }
+    }
+
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+            Debug.Log("Weapon Pickup");
+
+        if (other.gameObject.tag == "WeaponPickup")
+        {
+            Debug.Log("Weapon Pickup");
+            MyWeapon.changeWeapon(1);
+            Destroy(other.gameObject);
         }
     }
 
@@ -94,15 +109,20 @@ public class charMovement : MonoBehaviour
         if (manager.Life > 0)
         {
             manager.Life--;
-            transform.position = new Vector3(0, 0, 0);
+            transform.position = new Vector3(0, 0, 0); 
+            
             GetComponent<Rigidbody2D>().velocity = Vector3.zero;
         }
         else
         {
+            Destroy(gameObject);
             manager.gameover();
             manager.timeIsRunning = false;
         }
     }
+
+    
+
 
 
 }

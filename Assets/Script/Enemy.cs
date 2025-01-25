@@ -16,10 +16,13 @@ public class Enemy : MonoBehaviour
 
     public bool jumpable = false;
 
+    public float lastHitTime = 0;
+
     void Start()
     {
         manager = GameObject.Find("Manager").GetComponent<Manager>();
         player = GameObject.Find("Character").GetComponent<charMovement>();
+        lastHitTime = Time.time-5f;
     }
 
     // Update is called once per frame
@@ -52,9 +55,10 @@ public class Enemy : MonoBehaviour
                 transform.position += new Vector3(-0.005f, 0, 0);
             }
 
-            if (delY > 1)
+            if (delY > 1 && jumpable)
             {
                 transform.position += new Vector3(0, 0.007f, 0);
+                jumpable = false;
             }
             else if (delY < -1)
             {
@@ -63,7 +67,7 @@ public class Enemy : MonoBehaviour
         }
 
 
-        if(transform.position.y < -10)
+        if (transform.position.y < -10)
         {
             Destroy(gameObject);
         }
@@ -76,9 +80,10 @@ public class Enemy : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player" && Time.time > lastHitTime + 5f)
         {
-            collision.gameObject.GetComponent<charMovement>().respawn();
+            collision.gameObject.transform.position = new Vector3(100, 0, 0);
+            lastHitTime = Time.time;
         }
     }
 

@@ -200,6 +200,8 @@ MonoBehaviour:
   player: {fileID: 0}
   delX: 0
   delY: 0
+  jumpable: 0
+  lastHitTime: 0
 --- !u!1 &7309006673478964090
 GameObject:
   m_ObjectHideFlags: 0
