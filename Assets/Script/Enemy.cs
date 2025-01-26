@@ -38,8 +38,9 @@ public class Enemy : MonoBehaviour
             Math.Abs(Mathf.Sin(Time.time) * 0.05f) + 0.15f
         );
 
-        if (transform.position.y < 6) { enemyAI = true; }
+        if (transform.position.y < 6 && manager.timeIsRunning) { enemyAI = true; }
         else if (transform.position.y > 8) { enemyAI = false; }
+        else if(!manager.timeIsRunning) {enemyAI = false;}
 
         delX = player.transform.position.x - transform.position.x;
         delY = player.transform.position.y - transform.position.y;

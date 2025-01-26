@@ -115,9 +115,9 @@ public class charMovement : MonoBehaviour
         }
         else
         {
-            Destroy(gameObject);
             manager.gameover();
             manager.timeIsRunning = false;
+            Destroy(gameObject);
         }
     }
 
