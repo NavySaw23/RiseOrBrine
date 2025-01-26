@@ -18,11 +18,15 @@ public class Enemy : MonoBehaviour
 
     public float lastHitTime = 0;
 
+    public AudioSource playerDeath;
+
     void Start()
     {
         manager = GameObject.Find("Manager").GetComponent<Manager>();
         player = GameObject.Find("Character").GetComponent<charMovement>();
+        playerDeath = GameObject.Find("Character").GetComponent<AudioSource>();
         lastHitTime = Time.time-5f;
+
     }
 
     // Update is called once per frame
@@ -83,6 +87,7 @@ public class Enemy : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player" && Time.time > lastHitTime + 5f)
         {
+            playerDeath.Play();
             collision.gameObject.transform.position = new Vector3(100, 0, 0);
             lastHitTime = Time.time;
         }

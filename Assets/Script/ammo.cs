@@ -5,6 +5,7 @@ using UnityEngine;
 public class ammo : MonoBehaviour
 {
     // Start is called before the first frame update
+    public AudioSource EnemyDeath;
     public int currentWeapon;
     void Start()
     {
@@ -22,11 +23,8 @@ public class ammo : MonoBehaviour
         currentWeapon = transform.parent.GetComponent<weapon>().currentWeapon;
         if (collision.gameObject.tag == "Enemy" && currentWeapon == 1)
         {
+            EnemyDeath.Play();
             collision.gameObject.GetComponent<Enemy>().health -= 100;
-        }
-        if (collision.gameObject.tag == "Enemy" && currentWeapon == 2)
-        {
-            collision.gameObject.GetComponent<Enemy>().health -= 50;
         }
     }
 

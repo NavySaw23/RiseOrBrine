@@ -13,6 +13,7 @@ public class charMovement : MonoBehaviour
 
 
 
+
     void Start()
     {
         manager = GameObject.Find("Manager").GetComponent<Manager>();
